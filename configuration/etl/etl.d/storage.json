@@ -1,0 +1,83 @@
+{
+    "module": "xdmod",
+    "#": "Storage Ingestion and Aggregation",
+    "defaults": {
+        "global": {
+            "endpoints": {
+                "source": {
+                    "type": "mysql",
+                    "name": "HPCDB Database",
+                    "config": "datawarehouse",
+                    "schema": "mod_hpcdb"
+                },
+                "destination": {
+                    "type": "mysql",
+                    "name": "Storage",
+                    "config": "datawarehouse",
+                    "schema": "modw"
+                }
+            }
+        },
+        "xdw-ingest-storage": {
+            "namespace": "ETL\\Ingestor",
+            "class": "DatabaseIngestor",
+            "options_class": "IngestorOptions"
+        }
+    },
+    "xdw-bootstrap-storage": [
+        {
+            "name": "create-tables",
+            "description": "Create HPCDB tables",
+            "namespace": "ETL\\Maintenance",
+            "class": "ManageTables",
+            "options_class": "MaintenanceOptions",
+            "definition_file_list": [
+                "storage/xdw/mountpoint.json",
+                "storage/xdw/storagefact.json"
+            ]
+        }
+    ],
+    "xdw-ingest-storage": [
+        {
+            "name": "mountpoint",
+            "description": "Ingest storage mountpoints",
+            "definition_file": "storage/xdw/mountpoint.json"
+        },
+        {
+            "name": "storagefact",
+            "description": "Ingest storage usage",
+            "definition_file": "storage/xdw/storagefact.json"
+        }
+    ],
+    "xdw-aggregate-storage": [
+        {
+            "name": "aggregate",
+            "description": "Storage aggregator for user data",
+            "namespace": "ETL\\Aggregator",
+            "class": "SimpleAggregator",
+            "options_class": "AggregatorOptions",
+            "definition_file": "storage/xdw/storagefact.aggregation.json",
+            "table_prefix": "storagefact_by_",
+            "aggregation_units": [
+                "day",
+                "month",
+                "quarter",
+                "year"
+            ],
+            "endpoints": {
+                "source": {
+                    "type": "mysql",
+                    "name": "Data Warehouse",
+                    "config": "datawarehouse",
+                    "schema": "modw"
+                },
+                "destination": {
+                    "type": "mysql",
+                    "name": "Aggregate Data",
+                    "config": "datawarehouse",
+                    "schema": "modw_aggregates"
+                }
+            }
+        }
+    ]
+}

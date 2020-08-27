@@ -1,0 +1,133 @@
+Name:          xdmod
+Version:       __VERSION__
+Release:       __RELEASE__%{?dist}
+Summary:       Data warehouse and web portal for mining statistical data from resource managers
+URL:           http://open.xdmod.org/
+Vendor:        Center for Computational Research, University at Buffalo
+Packager:      Jeffrey T. Palmer <jtpalmer@buffalo.edu>
+Group:         Applications/Internet
+License:       LGPLv3+
+Source:        %{name}-%{version}__PRERELEASE__.tar.gz
+BuildRoot:     %(mktemp -ud %{_tmppath}/%{name}-%{version}__PRERELEASE__-%{release}-XXXXXX)
+BuildArch:     noarch
+BuildRequires: php-cli
+Requires:      httpd
+Requires:      mariadb >= 5.5.3
+Requires:      php >= 5.4 php-cli php-mysql php-pdo php-gd php-mcrypt php-xml php-mbstring
+Requires:      php-pear-MDB2 php-pear-MDB2-Driver-mysql
+Requires:      java-1.8.0-openjdk java-1.8.0-openjdk-devel
+Requires:      cronie
+Requires:      logrotate
+Requires:      ghostscript
+Requires:      jq
+
+%description
+XDMoD is a data warehouse and web portal for mining statistical data
+from resource managers in high-performance computing environments.
+XDMoD presents resource utilization over set time periods and provides
+detailed interactive charts, graphs, and tables.
+
+%prep
+%setup -q -n %{name}-%{version}__PRERELEASE__
+
+%pre
+getent group xdmod >/dev/null || groupadd -r xdmod
+getent passwd xdmod >/dev/null || \
+    useradd -r -M -c "Open XDMoD" -g xdmod -d %{_localstatedir}/lib/%{name} -s /sbin/nologin xdmod
+exit 0
+
+%install
+rm -rf $RPM_BUILD_ROOT
+DESTDIR=$RPM_BUILD_ROOT ./install \
+    --quiet \
+    --bindir=%{_bindir} \
+    --libdir=%{_libdir}/%{name} \
+    --sysconfdir=%{_sysconfdir}/%{name} \
+    --datadir=%{_datadir}/%{name} \
+    --docdir=%{_docdir}/%{name}-%{version}__PRERELEASE__ \
+    --logdir=%{_localstatedir}/log/%{name} \
+    --httpdconfdir=%{_sysconfdir}/httpd/conf.d \
+    --logrotatedconfdir=%{_sysconfdir}/logrotate.d \
+    --crondconfdir=%{_sysconfdir}/cron.d
+
+%post
+# Create log files that need to be writable by both Apache and Open XDMoD scripts.
+for file in exceptions.log query.log; do
+    touch %{_localstatedir}/log/%{name}/$file
+    chown apache:xdmod %{_localstatedir}/log/%{name}/$file
+    chmod 0664 %{_localstatedir}/log/%{name}/$file
+done
+if [ "$1" -ge 2 ]; then
+    echo "Run xdmod-upgrade to complete the Open XDMoD upgrade process."
+    echo "Refer to http://open.xdmod.org/upgrade.html for more details."
+fi
+exit 0
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root,-)
+%{_bindir}/%{name}-*
+%{_bindir}/acl-*
+%{_libdir}/%{name}/
+%{_datadir}/%{name}/
+%{_docdir}/%{name}-%{version}__PRERELEASE__/
+
+%dir %attr(0775,apache,xdmod) %{_localstatedir}/log/%{name}
+
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %attr(0440,apache,xdmod) %{_sysconfdir}/%{name}/portal_settings.ini
+%config(noreplace) %{_sysconfdir}/%{name}/*.d/
+%config(noreplace) %{_sysconfdir}/%{name}/*.json
+%config(noreplace) %{_sysconfdir}/%{name}/email_templates/
+%config(noreplace) %{_sysconfdir}/%{name}/etl/
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/%{name}.conf
+%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
+%config(noreplace) %{_sysconfdir}/cron.d/%{name}
+%config(noreplace) %{_datadir}/%{name}/html/robots.txt
+
+%changelog
+* Sun Jul 28 2019 XDMoD <ccr-xdmod-list@listserv.buffalo.edu>
+    - Remove `node_modules` management from `%pre`
+* Mon May 06 2019 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 8.1.2-1.0
+    - Update `%pre` with steps for `node_modules` on 8.1.2 release
+* Thu May 02 2019 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 8.1.1-1.0
+    - Update `%pre` with steps for `node_modules` on 8.1.1 release
+* Tue Apr 23 2019 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 8.1.0-1.0
+    - Update `%pre` with steps for `node_modules` on 8.1.0 release
+* Tue Oct 30 2018 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 8.0.0-1.0
+    - Add `jq` dependency
+    - Add `php-mbstring` dependency
+    - Remove php-pear-Log dependency
+* Thu Mar 01 2018 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 7.5.0-1.0
+    - Create an `xdmod` user and group if they do not already exist
+    - Change the permissions of `/var/log/xdmod/query.log`,
+      `/var/log/xdmod/exceptions.log`, and `/var/log/xdmod` so that they are
+      writable by the `apache` user and the `xdmod` group
+    - Update dependencies
+* Wed Sep 27 2017 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 7.0.1-1.0
+    - Release 7.0.1
+* Thu Sep 21 2017 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 7.0.0-1.0
+    - Add pre-release versioning
+    - Added Post Install
+* Thu May 11 2017 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 6.6.0-1.0
+    - Release 6.6.0
+* Tue Jan 10 2017 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 6.5.0-1.0
+    - Release 6.5.0
+* Wed Sep 21 2016 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 6.0.0-1.0
+    - Release 6.0.0
+* Tue May 24 2016 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 5.6.0-1.0
+    - Release 5.6.0
+* Fri Dec 18 2015 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 5.5.0-1.0
+    - Release 5.5.0
+* Wed Aug 19 2015 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 5.0.0-1.0
+    - Release 5.0.0
+* Tue Feb 17 2015 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 4.5.2-1.0
+    - Release 4.5.2
+* Thu Feb 05 2015 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 4.5.1-1.0
+    - Release 4.5.1
+* Thu Dec 04 2014 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 4.5.0-1.0
+    - Release 4.5.0
+* Mon Nov 18 2013 XDMoD <ccr-xdmod-list@listserv.buffalo.edu> 3.5.0-1.0
+    - Initial public release

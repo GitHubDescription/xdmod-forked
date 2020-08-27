@@ -1,0 +1,71 @@
+{
+  "table_definition": {
+    "name": "user_acls",
+    "engine": "InnoDB",
+    "comment": "Tracks which `Users` have which `acls`",
+    "columns": [
+      {
+        "name": "user_acl_id",
+        "type": "int(11)",
+        "nullable": false,
+        "extra": "auto_increment"
+      },
+      {
+        "name": "user_id",
+        "type": "int(11)",
+        "nullable": false
+      },
+      {
+        "name": "acl_id",
+        "type": "int(11)",
+        "nullable": false
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "columns": [
+          "user_acl_id"
+        ],
+        "type": "BTREE",
+        "is_unique": true
+      },
+      {
+        "name": "idx_user_id",
+        "columns": [
+          "user_id"
+        ]
+      },
+      {
+        "name": "idx_acl_id",
+        "columns": [
+          "acl_id"
+        ]
+      }
+    ],
+    "foreign_key_constraints": [
+      {
+        "name": "fk_ua_user_id",
+        "columns": [
+          "user_id"
+        ],
+        "referenced_table": "Users",
+        "referenced_columns": [
+          "id"
+        ],
+        "on_delete": "CASCADE"
+      },
+      {
+        "name": "fk_ua_acl_id",
+        "columns": [
+          "acl_id"
+        ],
+        "referenced_table": "acls",
+        "referenced_columns": [
+          "acl_id"
+        ],
+        "on_delete": "CASCADE"
+      }
+    ]
+  }
+}

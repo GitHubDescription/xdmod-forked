@@ -1,0 +1,208 @@
+[
+  [
+    {
+      "username": "test.cd.one-center",
+      "long_name": "Auk, Great",
+      "dimensionNames": {
+        "person": "User"
+      },
+      "filters": {
+        "person": [
+          {
+            "valueName": "Auk, G",
+            "isUserSpecificFilter": true,
+            "isMostPrivilegedRoleFilter": false
+          }
+        ]
+      }
+    }
+  ],
+  [
+    {
+      "username": "test.cs.one-center",
+      "long_name": "Auk, Little",
+      "dimensionNames": {
+        "person": "User"
+      },
+      "filters": {
+        "person": [
+          {
+            "valueName": "Auk, L",
+            "isUserSpecificFilter": true,
+            "isMostPrivilegedRoleFilter": false
+          }
+        ]
+      }
+    }
+  ],
+  [
+    {
+      "username": "test.pi",
+      "long_name": "Flycatcher, Taiga",
+      "dimensionNames": {
+        "pi": "PI"
+      },
+      "filters": {
+        "pi": [
+          {
+            "valueName": "Flycatcher, T",
+            "isUserSpecificFilter": true,
+            "isMostPrivilegedRoleFilter": true
+          }
+        ]
+      }
+    }
+  ],
+  [
+    {
+      "username": "test.normal-user",
+      "long_name": "Honey-buzzard",
+      "dimensionNames": {
+        "person": "User"
+      },
+      "filters": {
+        "person": [
+          {
+            "valueName": "Honey-buzzard",
+            "isUserSpecificFilter": true,
+            "isMostPrivilegedRoleFilter": true
+          }
+        ]
+      }
+    }
+  ],
+  [
+    {
+      "username": "test.usr_dev",
+      "long_name": "Honey-buzzard",
+      "dimensionNames": {
+        "person": "User"
+      },
+      "filters": {
+        "person": [
+          {
+            "valueName": "Honey-buzzard",
+            "isUserSpecificFilter": true,
+            "isMostPrivilegedRoleFilter": true
+          }
+        ]
+      }
+    }
+  ],
+  [
+    {
+      "username": "test.usr_mgr",
+      "long_name": "Honey-buzzard",
+      "dimensionNames": {
+        "person": "User"
+      },
+      "filters": {
+        "person": [
+          {
+            "valueName": "Honey-buzzard",
+            "isUserSpecificFilter": true,
+            "isMostPrivilegedRoleFilter": true
+          }
+        ]
+      }
+    }
+  ],
+  [
+    {
+      "username": "test.usr_mgr_dev",
+      "long_name": "Honey-buzzard",
+      "dimensionNames": {
+        "person": "User"
+      },
+      "filters": {
+        "person": [
+          {
+            "valueName": "Honey-buzzard",
+            "isUserSpecificFilter": true,
+            "isMostPrivilegedRoleFilter": true
+          }
+        ]
+      }
+    }
+  ],
+  [
+    {
+      "username": "centerdirector",
+      "long_name": "Bunting, Reed",
+      "dimensionNames": {
+        "person": "User"
+      },
+      "filters": {
+        "person": [
+          {
+            "valueName": "Bunting, R",
+            "isUserSpecificFilter": true,
+            "isMostPrivilegedRoleFilter": false
+          }
+        ]
+      }
+    }
+  ],
+  [
+    {
+      "username": "centerstaff",
+      "long_name": "Dove, Turtle",
+      "dimensionNames": {
+        "person": "User"
+      },
+      "filters": {
+        "person": [
+          {
+            "valueName": "Dove, T",
+            "isUserSpecificFilter": true,
+            "isMostPrivilegedRoleFilter": false
+          }
+        ]
+      }
+    }
+  ],
+  [
+    {
+      "username": "principal",
+      "long_name": "Tern, Caspian",
+      "dimensionNames": {
+        "pi": "PI",
+        "person": "User"
+      },
+      "filters": {
+        "pi": [
+          {
+            "valueName": "Tern, C",
+            "isUserSpecificFilter": true,
+            "isMostPrivilegedRoleFilter": true
+          }
+        ],
+        "person": [
+          {
+            "valueName": "Tern, C",
+            "isUserSpecificFilter": true,
+            "isMostPrivilegedRoleFilter": false
+          }
+        ]
+      }
+    }
+  ],
+  [
+    {
+      "username": "normaluser",
+      "long_name": "Whimbrel",
+      "dimensionNames": {
+        "person": "User"
+      },
+      "filters": {
+        "person": [
+          {
+            "valueName": "Whimbrel",
+            "isUserSpecificFilter": true,
+            "isMostPrivilegedRoleFilter": true
+          }
+        ]
+      }
+    }
+  ]
+]

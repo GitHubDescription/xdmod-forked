@@ -1,0 +1,51 @@
+{
+    "table_definition": [
+        {
+            "$ref": "${table_definition_dir}/jobs/xdw/hosts.json#/table_definition"
+        },
+        {
+            "$ref": "${table_definition_dir}/jobs/xdw/staging-jobhosts.json#/table_definition"
+        }
+    ],
+    "source_query": {
+        "records": {
+            "job_id": "jf.job_id",
+            "hostnames": "jf.node_list",
+            "resource_id": "jf.resource_id",
+            "order_id": 1,
+            "host_id": -1
+        },
+        "joins": [
+            {
+                "name": "hpcdb_jobs_to_ingest",
+                "schema": "${SOURCE_SCHEMA}",
+                "alias": "jti"
+            },
+            {
+                "name": "hpcdb_jobs",
+                "schema": "${SOURCE_SCHEMA}",
+                "alias": "jf",
+                "type": "INNER",
+                "on": "jti.job_id = jf.job_id"
+            }
+        ],
+        "where": [
+            "jf.node_list IS NOT NULL"
+        ],
+        "orderby": [
+            "jf.job_id"
+        ]
+    },
+    "destination_record_map": {
+        "staging_jobhosts": {
+            "job_id": "job_id",
+            "hostname": "hostnames",
+            "resource_id": "resource_id",
+            "order_id": "order_id"
+        },
+        "hosts": {
+            "hostname": "hostnames",
+            "resource_id": "resource_id"
+        }
+    }
+}

@@ -1,0 +1,124 @@
+{
+    "defaults": {
+
+        "global": {
+            "endpoints": {
+                "source": {
+                    "type": "mysql",
+                    "name": "Utility DB",
+                    "config": "datawarehouse",
+                    "schema": "modw",
+                    "create_schema_if_not_exists": true
+                },
+                "destination": {
+                    "type": "mysql",
+                    "name": "Utility DB",
+                    "config": "datawarehouse",
+                    "schema": "modw",
+                    "create_schema_if_not_exists": true
+                }
+            }
+        },
+
+        "jobs-common": {
+            "namespace": "ETL\\Ingestor",
+            "options_class": "IngestorOptions"
+        }
+    },
+
+    "#": "Current HPC job ingestion from the XDCDB mirror",
+
+
+    "jobs-common": [
+        {
+            "name": "JobsTableManagement",
+            "class": "ManageTables",
+            "description": "Manage job tables",
+            "namespace": "ETL\\Maintenance",
+            "options_class": "MaintenanceOptions",
+            "definition_file_list": [
+                "jobs/job_request_info.json",
+                "jobs/job_task_countable.json",
+                "jobs/meta_job.json",
+                "jobs/meta_job_record.json"
+            ],
+            "enabled": true
+        },
+        {
+            "name": "CountableTypeIngestor",
+            "description": "Countable types",
+            "class": "StructuredFileIngestor",
+            "definition_file": "jobs/countable_type.json",
+            "enabled": true,
+            "truncate_destination": true,
+            "endpoints": {
+                "source": {
+                    "type": "jsonfile",
+                    "name": "Countable types",
+                    "path": "jobs/countable_type.json"
+                }
+            }
+        },
+        {
+            "name": "JobRecordTypeIngestor",
+            "description": "Job record types",
+            "class": "StructuredFileIngestor",
+            "definition_file": "jobs/job_record_type.json",
+            "enabled": true,
+            "truncate_destination": true,
+            "endpoints": {
+                "source": {
+                    "type": "jsonfile",
+                    "name": "Job record types",
+                    "path": "jobs/job_record_type.json"
+                }
+            }
+        },
+        {
+            "name": "JobTaskTypeIngestor",
+            "description": "Job task types",
+            "class": "StructuredFileIngestor",
+            "definition_file": "jobs/job_task_type.json",
+            "enabled": true,
+            "truncate_destination": true,
+            "endpoints": {
+                "source": {
+                    "type": "jsonfile",
+                    "name": "Job task types",
+                    "path": "jobs/job_task_type.json"
+                }
+            }
+        },
+        {
+            "name": "UnitIngestor",
+            "description": "Units of measure",
+            "class": "StructuredFileIngestor",
+            "definition_file": "jobs/unit.json",
+            "enabled": true,
+            "truncate_destination": true,
+            "endpoints": {
+                "source": {
+                    "type": "jsonfile",
+                    "name": "Units of measure",
+                    "path": "jobs/unit.json"
+                }
+            }
+        },
+        {
+            "name": "SubmissionVenueIngestor",
+            "description": "Submission venues",
+            "class": "StructuredFileIngestor",
+            "definition_file": "jobs/submission_venue.json",
+            "enabled": true,
+            "truncate_destination": true,
+            "endpoints": {
+                "source": {
+                    "type": "jsonfile",
+                    "name": "Submission venues",
+                    "path": "jobs/submission_venue.json"
+                }
+            }
+        }
+    ]
+
+}

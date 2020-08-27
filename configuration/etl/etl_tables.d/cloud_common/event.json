@@ -1,0 +1,129 @@
+{
+    "#": "Events are spcific to a resource",
+
+    "table_definition": {
+        "name": "event",
+        "engine": "MyISAM",
+        "comment": "Events on an instance",
+        "columns": [
+            {
+                "name": "resource_id",
+                "type": "int(11)",
+                "nullable": false
+            },
+            {
+                "name": "event_id",
+                "type": "bigint(20) unsigned",
+                "extra": "auto_increment",
+                "nullable": false,
+                "comment": "Generated during ingest, relative to the resource."
+            },
+            {
+                "name": "instance_id",
+                "type": "int(11)",
+                "nullable": false,
+                "default": 1,
+                "comment": "Optional instance event is associated with. Unknown = 1"
+            },
+            {
+                "name": "event_time_ts",
+                "type": "decimal(16,6)",
+                "nullable": false,
+                "default": "0.000000"
+            },
+            {
+                "name": "person_id",
+                "type": "int(11)",
+                "nullable": false,
+                "default": -1
+            },
+            {
+                "name": "systemaccount_id",
+                "type": "int(11)",
+                "nullable": false,
+                "default": -1
+            },
+            {
+                "name": "event_type_id",
+                "type": "int(11)",
+                "nullable": false,
+                "default": -1,
+                "comment": "Unknown = -1 for global dimensions"
+            },
+            {
+                "name": "record_type_id",
+                "type": "int(11)",
+                "nullable": false,
+                "default": -1,
+                "comment": "Unknown = -1 for global dimensions"
+            },
+            {
+                "name": "host_id",
+                "type": "int(11)",
+                "nullable": false,
+                "comment": "Host where the event occured. Unknown = 1"
+            },
+            {
+                "name": "submission_venue_id",
+                "type": "int(5)",
+                "nullable": false,
+                "default": -1
+            },
+            {
+                "name": "last_modified",
+                "type": "timestamp",
+                "nullable": false,
+                "default": "CURRENT_TIMESTAMP",
+                "extra": "on update CURRENT_TIMESTAMP"
+            }
+        ],
+        "indexes": [
+            {
+                "name": "PRIMARY",
+                "columns": [
+                    "resource_id",
+                    "instance_id",
+                    "event_time_ts",
+                    "event_type_id",
+                    "host_id"
+                ],
+                "is_unique": true
+            },
+            {
+                "#": "For MyISAM tables, you can specify AUTO_INCREMENT on a secondary column in a",
+                "#": "multiple-column index. In this case, the generated value for the AUTO_INCREMENT column",
+                "#": "is calculated as MAX(auto_increment_column) + 1 WHERE prefix=given-prefix. This is",
+                "#": "useful when you want to put data into ordered groups.",
+                "#": "See [MyISAM Notes](https://dev.mysql.com/doc/refman/5.7/en/example-auto-increment.html)",
+
+                "name": "increment_key",
+                "columns": [
+                    "resource_id",
+                    "event_id"
+                ],
+                "is_unique": true
+            },
+            {
+                "name": "fk_event_type",
+                "columns": [
+                    "event_type_id"
+                ],
+                "is_unique": false
+            },
+            {
+                "name": "fk_instance",
+                "columns": [
+                    "instance_id",
+                    "resource_id"
+                ],
+                "is_unique": false
+            },
+            {
+                "name": "index_last_modified",
+                "columns": [
+                    "last_modified"
+                ]
+            }
+        ]
+    }
+}

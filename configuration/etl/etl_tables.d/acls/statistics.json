@@ -1,0 +1,76 @@
+{
+  "table_definition": {
+    "name": "statistics",
+    "engine": "InnoDB",
+    "comment": "Tracks all of the `statistics` currently available to the system",
+    "columns": [
+      {
+        "name": "statistic_id",
+        "type": "int(11)",
+        "nullable": false,
+        "extra": "auto_increment"
+      },
+      {
+        "name": "module_id",
+        "type": "int(11)",
+        "nullable": false
+      },
+      {
+        "name": "realm_id",
+        "type": "int(11)",
+        "nullable": false
+      },
+      {
+        "name": "name",
+        "type": "varchar(255)",
+        "nullable": false
+      }
+    ],
+    "indexes": [
+      {
+        "name": "PRIMARY",
+        "columns": [
+          "statistic_id"
+        ],
+        "type": "BTREE",
+        "is_unique": true
+      },
+      {
+        "name": "idx_module_id",
+        "columns": [
+          "module_id"
+        ]
+      },
+      {
+        "name": "idx_realm_id",
+        "columns": [
+          "realm_id"
+        ]
+      }
+    ],
+    "foreign_key_constraints": [
+      {
+        "name": "fk_s_module_id",
+        "columns": [
+          "module_id"
+        ],
+        "referenced_table": "modules",
+        "referenced_columns": [
+          "module_id"
+        ],
+        "on_delete": "CASCADE"
+      },
+      {
+        "name": "fk_s_realm_id",
+        "columns": [
+          "realm_id"
+        ],
+        "referenced_table": "realms",
+        "referenced_columns": [
+          "realm_id"
+        ],
+        "on_delete": "CASCADE"
+      }
+    ]
+  }
+}

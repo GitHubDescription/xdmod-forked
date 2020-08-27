@@ -1,0 +1,64 @@
+{
+    "table_definition": {
+        "name": "fieldofscience",
+        "comment": "The various fields of science.",
+        "engine": "MyISAM",
+        "columns": [
+            {
+                "name": "id",
+                "type": "int(11)",
+                "nullable": false,
+                "comment": "The id of the record."
+            },
+            {
+                "name": "parent_id",
+                "type": "int(11)",
+                "comment": "The parent of this field of science, if NULL this is an NSF Directorate.",
+                "nullable": true
+            },
+            {
+                "name": "description",
+                "type": "varchar(200)",
+                "comment": "The description of this field of science.",
+                "nullable": true
+            },
+            {
+                "name": "fos_nsf_id",
+                "type": "int(11)",
+                "comment": "The nsf id for this field of science.",
+                "nullable": true
+            },
+            {
+                "name": "fos_nsf_abbrev",
+                "type": "varchar(100)",
+                "comment": "The nsf abbreviation.",
+                "nullable": true
+            },
+            {
+                "name": "directorate_fos_id",
+                "type": "int(11)",
+                "comment": "The id of the NSF directorate of this field of science.",
+                "nullable": true
+            }
+        ],
+        "indexes": [
+            {
+                "name": "fk_science_science1_idx",
+                "columns": [
+                    "parent_id"
+                ],
+                "type": "BTREE",
+                "is_unique": false
+            },
+            {
+                "name": "PRIMARY",
+                "columns": [
+                    "id"
+                ],
+                "type": "BTREE",
+                "is_unique": true
+            }
+        ],
+        "triggers": []
+    }
+}

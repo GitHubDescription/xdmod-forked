@@ -1,0 +1,110 @@
+{
+    "name": "xdmod",
+    "version": "8.5.0",
+    "release": "1.0",
+    "files": {
+        "include_paths": [
+            "/"
+        ],
+        "exclude_paths": [
+            "/classes/UnitTesting",
+            "/composer.json",
+            "/composer.lock",
+            "/docs",
+            "/html/gui/js/modules/Module.template",
+            "/logs",
+            "/phpcs.xml",
+            "/setup",
+            "/sonar-project.properties",
+            "/tests",
+            "/html/gui/lib/extjs/docs",
+            "/html/gui/lib/extjs/build",
+            "/html/gui/lib/extjs/pkgs",
+            "/html/gui/lib/extjs/test",
+            "/html/gui/lib/extjs/welcome",
+            "/html/gui/lib/highcharts/api",
+            "/html/gui/lib/highcharts/examples",
+            "/html/gui/lib/highcharts/gfx",
+            "/html/gui/lib/highcharts/graphics",
+            "/html/gui/lib/highcharts/index.htm",
+            "/html/unit_tests",
+            "/user_manual_builder"
+        ],
+        "exclude_patterns": [
+            "#/\\.#",
+            "#xdmod-.*\\.rpm$#",
+            "#xdmod-.*\\.tar\\.gz$#",
+            "#^\\/html\\/gui\\/lib\\/extjs\\/examples\\/[A-t,v-z].*#",
+            "#^\\/html\\/gui\\/lib\\/extjs\\/resources\\/images\\/[a,h-z].*#",
+            "#^\\/html\\/gui\\/lib\\/extjs\\/resources\\/.*\\.swf#",
+            "#^\\/configuration\\/.+\\..+\\.template$#"
+        ]
+    },
+    "file_maps": {
+        "data": [
+            "classes",
+            "db",
+            "etl",
+            "html",
+            "libraries",
+            "reporting",
+            "templates",
+            "tools",
+            "vendor",
+            { "configuration/constants.php": true },
+            { "configuration/linker.php" : true }
+        ],
+        "bin": [
+            "bin/"
+        ],
+        "lib": [
+            "background_scripts/"
+        ],
+        "doc": [
+            {"AUTHORS.md": "AUTHORS"},
+            {"CHANGELOG.md": "CHANGELOG"},
+            "LICENSE",
+            "NOTICE",
+            {"README.md": "README"},
+            "licenses"
+        ],
+        "etc": [
+            "configuration/colors1.json",
+            "configuration/datawarehouse.json",
+            "configuration/etl",
+            "configuration/hierarchy.json",
+            "configuration/internal_dashboard.json",
+            "configuration/linker.json",
+            "configuration/organization.json",
+            "configuration/portal_settings.ini",
+            "configuration/portal_settings.d",
+            "configuration/rawstatistics.json",
+            "configuration/rawstatistics.d",
+            {"configuration/rawstatistics.d/20_jobs.json": "rawstatistics.d/20_jobs.json"},
+            "configuration/resource_specs.json",
+            "configuration/resource_types.json",
+            "configuration/resources.json",
+            "configuration/roles.json",
+            "configuration/rest.json",
+            "configuration/rest.d",
+            "configuration/setup.json",
+            "configuration/update_check.json",
+            "configuration/user_management.json",
+            "configuration/assets.json",
+            "configuration/modules.json",
+            "configuration/hierarchies.json",
+            {"configuration/hierarchies.d/xdmod.json": "hierarchies.d/xdmod.json"},
+            {"configuration/modules.d/xdmod.json": "modules.d/xdmod.json"},
+            "email_templates"
+        ],
+        "etc/httpd": {
+            "configuration/apache.conf": "xdmod.conf"
+        },
+        "etc/logrotated": {
+            "configuration/logrotate.conf": "xdmod"
+        },
+        "etc/crond": {
+            "configuration/cron.conf": "xdmod"
+        }
+    }
+}

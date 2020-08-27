@@ -1,0 +1,48 @@
+{
+    "table_definition": {
+        "name": "countable_type",
+        "comment": "Types of things that are countable. Accelerators, databases, storage, etc.",
+        "engine": "MyISAM",
+        "columns": [
+            {
+                "name": "countable_type_id",
+                "type": "int(11)",
+                "nullable": false
+            },
+            {
+                "name": "unit_id",
+                "type": "int(11)",
+                "comment": "Optional unit for this countable",
+                "nullable": true
+            },
+            {
+                "name": "countable_type",
+                "type": "varchar(64)",
+                "nullable": false,
+                "comment": "Short version or abbrev"
+            },
+            {
+                "name": "display",
+                "type": "varchar(256)",
+                "nullable": false,
+                "comment": "What to show the user"
+            },
+            {
+                "name": "description",
+                "type": "varchar(1024)",
+                "nullable": true
+            }
+        ],
+        "indexes": [
+            {
+                "name": "PRIMARY",
+                "columns": [
+                    "countable_type_id"
+                ],
+                "type": "BTREE",
+                "is_unique": true
+            }
+        ],
+        "triggers": []
+    }
+}

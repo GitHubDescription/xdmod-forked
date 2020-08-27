@@ -1,0 +1,42 @@
+{
+    "table_definition": {
+        "name": "job_record_type",
+        "comment": "hpc, cloud, reservation, etc.",
+        "engine": "MyISAM",
+        "columns": [
+            {
+                "name": "job_record_type_id",
+                "type": "int(11)",
+                "nullable": false
+            },
+            {
+                "name": "job_record_type",
+                "type": "varchar(64)",
+                "nullable": false,
+                "comment": "Short version or abbrev"
+            },
+            {
+                "name": "display",
+                "type": "varchar(256)",
+                "nullable": false,
+                "comment": "What to show the user"
+            },
+            {
+                "name": "description",
+                "type": "varchar(1024)",
+                "nullable": true
+            }
+        ],
+        "indexes": [
+            {
+                "name": "PRIMARY",
+                "columns": [
+                    "job_record_type_id"
+                ],
+                "type": "BTREE",
+                "is_unique": true
+            }
+        ],
+        "triggers": []
+    }
+}

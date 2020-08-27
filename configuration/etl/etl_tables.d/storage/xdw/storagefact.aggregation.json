@@ -1,0 +1,210 @@
+{
+    "table_definition": {
+        "name": "storagefact_by_",
+        "table_prefix": "storagefact_by_",
+        "engine": "MyISAM",
+        "comment": "Aggregate storage usage data",
+        "columns": [
+            {
+                "name": "${AGGREGATION_UNIT}_id",
+                "type": "int(10) unsigned",
+                "nullable": false,
+                "comment": "The ID for the time period from modw.${AGGREGATION_UNIT}s."
+            },
+            {
+                "name": "year",
+                "type": "smallint(5) unsigned",
+                "nullable": false,
+                "comment": "The year of the ${AGGREGATION_UNIT}."
+            },
+            {
+                "name": "${AGGREGATION_UNIT}",
+                "type": "smallint(5) unsigned",
+                "nullable": false,
+                "comment": "The ${AGGREGATION_UNIT} of the year."
+            },
+            {
+                "name": "resource_id",
+                "type": "int(11)",
+                "nullable": false,
+                "comment": "The ID of the resource."
+            },
+            {
+                "name": "resourcetype_id",
+                "type": "int(11)",
+                "nullable": false,
+                "comment": "The ID of the resource type."
+            },
+            {
+                "name": "mountpoint_id",
+                "type": "int(11)",
+                "nullable": false,
+                "comment": "The ID of the mountpoint."
+            },
+            {
+                "name": "person_id",
+                "type": "int(11)",
+                "nullable": false,
+                "comment": "The ID of the person."
+            },
+            {
+                "name": "principalinvestigator_person_id",
+                "type": "int(11)",
+                "nullable": false,
+                "comment": "The ID of the PI."
+            },
+            {
+                "name": "systemaccount_id",
+                "type": "int(11)",
+                "nullable": false,
+                "comment": "The ID of the system account."
+            },
+            {
+                "name": "fos_id",
+                "type": "int(11)",
+                "nullable": false,
+                "comment": "The ID of the field of science."
+            },
+            {
+                "name": "record_count",
+                "type": "bigint(20) unsigned",
+                "nullable": false,
+                "comment": "The number of records that were aggregated to create this record."
+            },
+            {
+                "name": "avg_file_count",
+                "type": "bigint(20) unsigned",
+                "nullable": false,
+                "comment": "Average file count."
+            },
+            {
+                "name": "sum_file_count",
+                "type": "decimal(30,0) unsigned",
+                "nullable": false,
+                "comment": "Sum of file counts."
+            },
+            {
+                "name": "sum_squared_file_count",
+                "type": "decimal(60,0) unsigned",
+                "nullable": false,
+                "comment": "Sum of squared file counts."
+            },
+            {
+                "name": "avg_logical_usage",
+                "type": "bigint(20) unsigned",
+                "nullable": false,
+                "comment": "Average logical usage."
+            },
+            {
+                "name": "sum_logical_usage",
+                "type": "decimal(30,0) unsigned",
+                "nullable": false,
+                "comment": "Sum of logical usage."
+            },
+            {
+                "name": "sum_squared_logical_usage",
+                "type": "decimal(60,0) unsigned",
+                "nullable": false,
+                "comment": "Sum of squared logical usage."
+            },
+            {
+                "name": "avg_physical_usage",
+                "type": "bigint(20) unsigned",
+                "nullable": false,
+                "comment": "Average physical usage."
+            },
+            {
+                "name": "sum_physical_usage",
+                "type": "decimal(30,0) unsigned",
+                "nullable": false,
+                "comment": "Sum of physical usage."
+            },
+            {
+                "name": "sum_squared_physical_usage",
+                "type": "decimal(60,0) unsigned",
+                "nullable": false,
+                "comment": "Sum of squared physical usage."
+            },
+            {
+                "name": "avg_soft_threshold",
+                "type": "bigint(20) unsigned",
+                "nullable": false,
+                "comment": "Average soft threshold."
+            },
+            {
+                "name": "sum_soft_threshold",
+                "type": "decimal(30,0) unsigned",
+                "nullable": false,
+                "comment": "Sum of soft threshold."
+            },
+            {
+                "name": "avg_hard_threshold",
+                "type": "bigint(20) unsigned",
+                "nullable": false,
+                "comment": "Average hard threshold."
+            },
+            {
+                "name": "sum_hard_threshold",
+                "type": "decimal(30,0) unsigned",
+                "nullable": false,
+                "comment": "Sum of hard threshold."
+            }
+        ],
+        "indexes": [
+            {
+                "name": "idx_period_id",
+                "columns": [
+                    "${AGGREGATION_UNIT}_id"
+                ]
+            },
+            {
+                "name": "idx_period",
+                "columns": [
+                    "${AGGREGATION_UNIT}"
+                ]
+            },
+            {
+                "name": "idx_resource_id",
+                "columns": [
+                    "resource_id"
+                ]
+            },
+            {
+                "name": "idx_resourcetype_id",
+                "columns": [
+                    "resourcetype_id"
+                ]
+            },
+            {
+                "name": "idx_mountpoint_id",
+                "columns": [
+                    "mountpoint_id"
+                ]
+            },
+            {
+                "name": "idx_person_id",
+                "columns": [
+                    "person_id"
+                ]
+            },
+            {
+                "name": "idx_principalinvestigator_person_id",
+                "columns": [
+                    "principalinvestigator_person_id"
+                ]
+            },
+            {
+                "name": "idx_systemaccount_id",
+                "columns": [
+                    "systemaccount_id"
+                ]
+            },
+            {
+                "name": "idx_fos_id",
+                "columns": [
+                    "fos_id"
+                ]
+            }
+        ]
+    }
+}

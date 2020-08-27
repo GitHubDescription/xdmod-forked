@@ -1,0 +1,76 @@
+{
+    "table_definition": {
+        "name": "acl_tabs",
+        "engine": "InnoDB",
+        "comment": "Tracks which `acls` have a relationship with which `tabs`",
+        "columns": [
+            {
+                "name": "acl_tab_id",
+                "type": "int(11)",
+                "nullable": false,
+                "extra": "auto_increment"
+            },
+            {
+                "name": "acl_id",
+                "type": "int(11)",
+                "nullable": false
+            },
+            {
+                "name": "tab_id",
+                "type": "int(11)",
+                "nullable": false
+            },
+            {
+                "name": "parent_acl_tab_id",
+                "type": "int(11)"
+            }
+        ],
+        "indexes": [
+            {
+                "name": "PRIMARY",
+                "columns": [
+                    "acl_tab_id"
+                ],
+                "type": "BTREE",
+                "is_unique": true
+            },
+            {
+                "name": "idx_acl_tab",
+                "columns": [
+                    "acl_id",
+                    "tab_id"
+                ]
+            },
+            {
+                "name": "idx_tab_id",
+                "columns": [
+                    "tab_id"
+                ]
+            }
+        ],
+        "foreign_key_constraints": [
+            {
+                "name": "fk_at_acl_id",
+                "columns": [
+                    "acl_id"
+                ],
+                "referenced_table": "acls",
+                "referenced_columns": [
+                    "acl_id"
+                ],
+                "on_delete": "CASCADE"
+            },
+            {
+                "name": "fk_at_tab_id",
+                "columns": [
+                    "tab_id"
+                ],
+                "referenced_table": "tabs",
+                "referenced_columns": [
+                    "tab_id"
+                ],
+                "on_delete": "CASCADE"
+            }
+        ]
+    }
+}
